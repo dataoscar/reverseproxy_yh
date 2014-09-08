@@ -1,0 +1,9 @@
+#!/bin/bash
+
+domain=$(sudo yunohost app setting external_proxy domain)
+path=$(sudo yunohost app setting external_proxy path)
+targetpath=$(sudo yunohost app setting external_proxy targetpath)
+
+sudo rm -f "/etc/nginx/conf.d/$domain.d/external_proxy_$path.conf"
+
+sudo service nginx reload

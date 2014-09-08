@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Retrieve arguments
+domain=$1
+path=$2
+targetpath=$3
+
+# Check domain/path availability
+sudo yunohost app checkurl $domain$path -a external_proxy
+if [[ ! $? -eq 0 ]]; then
+    exit 1
+fi
+
+# Modify Nginx configuration file and copy it to Nginx conf directory
+sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
+sed -i "s@TARGETPATHTOCHANGE@$targetpath/@g" ../conf/nginx.conf
+sudo cp ../conf/nginx.conf "/etc/nginx/conf.d/$domain.d/external_proxy_$path.conf"
+
+# Reload Nginx and regenerate SSOwat conf
+sudo service nginx reload
+sudo yunohost app ssowatconf

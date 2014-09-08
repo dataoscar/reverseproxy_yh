@@ -1,0 +1,40 @@
+{
+    "name": "Reverse Proxy for Yunohost",
+    "id": "reverse_proxy",
+    "description": {
+        "en": "Reverse proxy using Nginx. Allows creating custom mappings to internal web apps",
+    },
+    "developer": {
+        "name": "dataoscar",
+        "email": "padillao@gmail.com",
+        "url": "https://github.com/dataoscar"
+    },
+    "multi_instance": "true",
+    "arguments": {
+        "install": [
+            {
+                "name": "domain",
+                "ask": {
+                    "en": "Choose a domain for your website",
+                },
+                "example": "domain.org"
+            },
+            {
+                "name": "path",
+                "ask": {
+                    "en": "Choose a path for your site",
+                },
+                "example": "/mysite",
+                "default": "/mysite"
+            },
+            {
+                "name": "targetpath",
+                "ask": {
+                    "en": "Choose target url to proxy",
+                },
+                "example": "http://internal-server:8080/",
+                "default": "http://internal-server:8080/"
+            }
+        ]
+    }
+}
