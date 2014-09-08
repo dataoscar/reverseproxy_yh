@@ -4,6 +4,7 @@
     "description": {
         "en": "Reverse proxy using Nginx. Allows creating custom mappings to internal web apps",
     },
+    "license": "MIT",
     "developer": {
         "name": "dataoscar",
         "email": "padillao@gmail.com",

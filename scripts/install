@@ -11,6 +11,9 @@ if [[ ! $? -eq 0 ]]; then
     exit 1
 fi
 
+#Set the target path for upgrade
+sudo yunohost app setting external_proxy targetpath -v "$targetpath"
+
 # Modify Nginx configuration file and copy it to Nginx conf directory
 sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
 sed -i "s@TARGETPATHTOCHANGE@$targetpath/@g" ../conf/nginx.conf
