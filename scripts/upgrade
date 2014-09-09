@@ -1,13 +1,13 @@
 #!/bin/bash
 
-domain=$(sudo yunohost app setting external_proxy domain)
-path=$(sudo yunohost app setting external_proxy path)
-targetpath=$(sudo yunohost app setting external_proxy targetpath)
-UUID=$(sudo yunohost app setting external_proxy uuid)
+domain=$(sudo yunohost app setting reverse_proxy domain)
+path=$(sudo yunohost app setting reverse_proxy path)
+targetpath=$(sudo yunohost app setting reverse_proxy targetpath)
+UUID=$(sudo yunohost app setting reverse_proxy uuid)
 
 sed -i "s@PATHTOCHANGE@$path/@g" ../conf/nginx.conf
-sed -i "s@TARGETPATHTOCHANGE@$targetpath/@g" ../conf/nginx.conf
-sudo cp ../conf/nginx.conf "/etc/nginx/conf.d/$domain.d/reverse_proxy$UUID.conf"
+sed -i "s@TARGETTOCHANGE@$targetpath/@g" ../conf/nginx.conf
+sudo cp ../conf/nginx.conf "/etc/nginx/conf.d/$domain.d/reverse_proxy_$UUID.conf"
 
 sudo service nginx reload
 sudo yunohost app ssowatconf

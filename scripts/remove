@@ -1,7 +1,7 @@
 #!/bin/bash
 
-domain=$(sudo yunohost app setting external_proxy domain)
-UUID=$(sudo yunohost app setting external_proxy uuid)
+domain=$(sudo yunohost app setting reverse_proxy domain)
+UUID=$(sudo yunohost app setting reverse_proxy uuid)
 
 sudo rm -f "/etc/nginx/conf.d/$domain.d/reverse_proxy_$UUID.conf"
 

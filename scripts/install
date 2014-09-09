@@ -19,7 +19,7 @@ sudo yunohost app setting reverse_proxy uuid -v "$UUID"
 
 # Modify Nginx configuration file and copy it to Nginx conf directory
 sed -i "s@PATHTOCHANGE@$path/@g" ../conf/nginx.conf
-sed -i "s@TARGETPATHTOCHANGE@$targetpath/@g" ../conf/nginx.conf
+sed -i "s@TARGETTOCHANGE@$targetpath/@g" ../conf/nginx.conf
 sudo cp ../conf/nginx.conf "/etc/nginx/conf.d/$domain.d/reverse_proxy_$UUID.conf"
 
 # Reload Nginx and regenerate SSOwat conf
