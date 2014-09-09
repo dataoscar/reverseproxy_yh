@@ -6,7 +6,7 @@ path=$2
 targetpath=$3
 
 # Check domain/path availability
-sudo yunohost app checkurl $domain$path -a external_proxy
+sudo yunohost app checkurl "$domain$path"
 if [[ ! $? -eq 0 ]]; then
     exit 1
 fi
