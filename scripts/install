@@ -2,8 +2,9 @@
 
 # Retrieve arguments
 domain=$1
-path=$2
-targetpath=$3
+path=${2%/}
+isPublic=$3
+targetpath=$4
 UUID=$(cat /proc/sys/kernel/random/uuid)
 
 # Check domain/path availability
@@ -14,13 +15,20 @@ fi
 
 #Set the target path for upgrade
 sudo yunohost app setting reverse_proxy targetpath -v "$targetpath"
-#Set the UUID for this app
+#Set the UUID for this app - makes the nginx conf unique amongst instances
 sudo yunohost app setting reverse_proxy uuid -v "$UUID"
 
 # Modify Nginx configuration file and copy it to Nginx conf directory
-sed -i "s@PATHTOCHANGE@$path/@g" ../conf/nginx.conf
-sed -i "s@TARGETTOCHANGE@$targetpath/@g" ../conf/nginx.conf
+sed -i "s@PATHTOCHANGE@$path@g" ../conf/nginx.conf
+sed -i "s@TARGETTOCHANGE@$targetpath@g" ../conf/nginx.conf
 sudo cp ../conf/nginx.conf "/etc/nginx/conf.d/$domain.d/reverse_proxy_$UUID.conf"
+
+# Is it public?
+sudo yunohost app setting reverse_proxy isPublic -v "$isPublic"
+if [ "$isPublic" = "Yes" ];
+then
+    sudo yunohost app setting reverse_proxy skipped_uris -v "/"
+fi
 
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
