@@ -1,9 +1,8 @@
 #!/bin/bash
 
 domain=$(sudo yunohost app setting reverse_proxy domain)
-UUID=$(sudo yunohost app setting reverse_proxy uuid)
 
-sudo rm -f "/etc/nginx/conf.d/$domain.d/reverse_proxy_$UUID.conf"
+sudo rm -f "/etc/nginx/conf.d/$domain.d/reverse_proxy.conf"
 
 # Reload Nginx and regenerate SSOwat conf
 sudo service nginx reload
